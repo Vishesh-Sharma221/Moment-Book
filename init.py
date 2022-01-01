@@ -1,17 +1,19 @@
+from funcs import *
+
 import mysql.connector 
+from datetime import datetime
 
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="visheshsharma22",
+    passwd=take_pass(),
     database="Moment_Book"
 )
 
 mycursor = db.cursor()
 
-# mycursor.execute("CREATE TABLE test (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)")
-# mycursor.execute("INSERT INTO test (name,age) VALUES(%s,%s)", ("Joe","19"))
-mycursor.execute("SELECT * FROM test")
-# db.commit()
+mycursor.execute("SELECT * from VAYS")
+
 for x in mycursor:
     print(x)
+
