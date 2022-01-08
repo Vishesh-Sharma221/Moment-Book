@@ -11,9 +11,13 @@ db = mysql.connector.connect(
 )
 
 mycursor = db.cursor()
+welcomer()
+title = take_title()
+memory = take_memory()
 
-mycursor.execute("SELECT * from VAYS")
+Q1 = "CREATE TABLE Memories (Title varchar(20) NOT NULL, Memory varchar(500), Created datetime NOT NULL, id int PRIMARY KEY AUTO_INCREMENT UNSIGNED)"
 
-for x in mycursor:
-    print(x)
+Q2 = "INSERT INTO Memories (Title,Memory,Created) VALUES (%s,%s,%s)"
 
+mycursor.execute(Q2,(title,memory,datetime.now()), multi = True)
+db.commit()
