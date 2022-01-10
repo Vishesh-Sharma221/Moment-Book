@@ -54,7 +54,7 @@ def main():
         mycursor.execute(select_all)
         print("\nHere are all of your memories!\n")
         for x in mycursor:
-            print(f"    -{x[0]}")
+            print(f"    -{x[0]} on {x[2]}")
         choose = input("Which one do you wanna read ?")
         mycursor.execute(select_memory%(choose,))
         for x in mycursor:
@@ -65,7 +65,7 @@ def main():
         print("\nHere are all of your memories!\n")
         
         for x in mycursor:
-            print(f"    {x[3]}. {x[0]}")
+            print(f"    {x[3]}. {x[0]}  on {x[2]}")
 
         id = int(input("Which one do you wanna edit (1,2,3..)?: "))
         choose= input("\nType `t` if you just wanna edit the title and `m` if the memory itself: ")
