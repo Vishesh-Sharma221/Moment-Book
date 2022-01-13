@@ -21,6 +21,6 @@ def take_memory():
 	return mem
 
 def welcomer():
-	print("\n----------------MOMENT BOOK---------------- \n")
-	print("\nWelcome! feel free to tell me all of your stories and moments \n")
+	print("\n----------------WELCOME TO MOMENT BOOK---------------- \n")
+	print("\nfeel free to tell me all of your stories and moments :D \n")
 

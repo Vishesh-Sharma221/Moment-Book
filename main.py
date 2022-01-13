@@ -26,12 +26,15 @@ create_table = """CREATE TABLE Memories (
 welcomer()
 
 def main():
-    opt = input('''\nHi! So what do you wanna do? :
-                    Press `c` to create a memory
-                    Press `d` to delete a memory
-                    Press `r` to read a memory
-                    Press `e` to edit a memory
-                    Press `exit` to exit the app\n : ''')
+    opt = input('''\n                   ~ MENU ~ 
+
+Select an action you want to perform:
+
+        1.  Press `c` to create a memory
+        2.  Press `d` to delete an existing memory
+        3.  Press `v` to view all the memories created
+        4.  Press `e` to edit a memory
+        5.  Press `exit` to exit the app\n : ''')
 
     if opt.lower() == "c":
         title = take_title()
@@ -50,11 +53,11 @@ def main():
         else:
             print("Then Enter a correct value please")
 
-    elif opt.lower() == "r":
+    elif opt.lower() == "v":
         mycursor.execute(select_all)
         print("\nHere are all of your memories!\n")
         for x in mycursor:
-            print(f"    -{x[0]} on {x[2]}")
+            print(f"    --> {x[0]} on {x[2]}")
         choose = input("Which one do you wanna read ?")
         mycursor.execute(select_memory%(choose,))
         for x in mycursor:
@@ -67,9 +70,9 @@ def main():
         for x in mycursor:
             print(f"    {x[3]}. {x[0]}  on {x[2]}")
 
-        id = int(input("Which one do you wanna edit (1,2,3..)?: "))
+        id = int(input("\nWhich one do you wanna edit (1,2,3..)?: "))
         choose= input("\nType `t` if you just wanna edit the title and `m` if the memory itself: ")
-        choose_new = input("Alright, now just give me the new content to replace! : ")
+        choose_new = input("\nAlright, now just give me the new content to replace! : ")
 
         if choose.lower() == "t":
             mycursor.execute(update_title%(choose_new,id))
@@ -89,4 +92,4 @@ def main():
 
 while True:
     main()
-    time.sleep(2)
+    time.sleep(5)
