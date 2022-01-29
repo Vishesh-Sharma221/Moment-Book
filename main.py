@@ -83,10 +83,15 @@ class Cred():
             print("Done!")
 
     def view(cursor):
-        cursor.execute(select_all)
+        cursor.execute(select_title)
         result = cursor.fetchall()
         print("\nHere are all of your memories!\n")
-        print(tabulate(result,headers=['Title','Memory','Created','ID'], tablefmt='fancy_grid'))
+        print(tabulate(result,headers=['Title','Created','id'], tablefmt='fancy_grid'))
+        mem = input("\nWhich memory you want to see? ")
+        query = select_memory%(mem,)
+        cursor.execute(query)
+        res = cursor.fetchall()
+        print("\n",tabulate(res, tablefmt='fancy_grid'))
 
     def delete(cursor,db):
         cursor.execute(select_all)

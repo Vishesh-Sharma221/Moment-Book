@@ -6,6 +6,7 @@ insert_into = """INSERT INTO Memories (Title,Memory,Created) VALUES (%s,%s,%s)""
 delete_row = "DELETE FROM Memories WHERE Title = '%s'"
 select_all = "SELECT * FROM Memories"
 select_memory = "SELECT Memory FROM Memories WHERE Title = '%s'"
+select_title = "SELECT Title,Created,id FROM Memories"
 update_title = "UPDATE Memories SET Title='%s' WHERE id='%s'"
 update_memory = "UPDATE Memories SET Memory='%s' WHERE id='%s'"
 
