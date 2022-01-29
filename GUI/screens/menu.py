@@ -1,11 +1,12 @@
 import pygame
 from sys import exit 
+from login import *
 
 pygame.init()
 screen = pygame.display.set_mode((600,600))
 pygame.display.set_caption('Moment Book!')
 app_fps = pygame.time.Clock()
-font = pygame.font.Font('font.ttf',30)
+font = pygame.font.Font('Moment-Book/GUI/assets/font.ttf',30)
 
 class Button():
     def __init__(self,text,width,height,pos):
@@ -29,15 +30,16 @@ class Button():
             else:
                 if self.pressed == True:
                     self.Top_color = '#e6e600'
+                    login()
                 self.pressed = False 
 
     def reset_button_color(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.Top_rect.collidepoint(mouse_pos) == False:
             self.Top_color = (255,255,255)
-            
+        
 
-bg_surf = pygame.image.load('bg.jpg')
+bg_surf = pygame.image.load('Moment-Book/GUI/assets/bg.jpg')
 create = Button('Create!',280,50,(50,145))
 view = Button('View',280,50,(50,245))
 edit = Button('Edit',280,50,(50,345))
@@ -49,15 +51,15 @@ def display_buttons(*BUTTON):
         button.check_hover()
         button.reset_button_color()
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+def main_menu():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
 
-    screen.blit(bg_surf,(0,0))
-    display_buttons(create,view,edit,delete)
-    
+        screen.blit(bg_surf,(0,0))
+        display_buttons(create,view,edit,delete)
 
-    pygame.display.update()
-    app_fps.tick(60)
+        pygame.display.update()
+        app_fps.tick(60)
+

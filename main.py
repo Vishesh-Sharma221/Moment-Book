@@ -1,95 +1,138 @@
 
-#  MAIN FILE ------
+#  MAIN FILE IMPORTS 
 
-from initials import *
-
-import mysql.connector 
-import sys
-import time
+from database_funcs import *
+from queries import * 
 from datetime import datetime
+from tabulate import tabulate 
+import sys
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd=take_pass(),
-    database="Moment_Book"
-)
+if __name__ == "__main__":
+    db = connect_to_server() #connects user to the server
 
-mycursor = db.cursor()
+    mycursor = connect_cursor(db) #connects cursor which we use to execute commands in sql with python
 
-create_table = """CREATE TABLE Memories (
-        Title varchar(20) NOT NULL, 
-        Memory varchar(500), 
-        Created datetime NOT NULL, 
-        id int UNSIGNED PRIMARY KEY AUTO_INCREMENT)"""
+# executing the queries for basic requirements in our database 
+    mycursor.execute(create_database)
+    mycursor.execute(use_database)
+    mycursor.execute(create_table) 
 
-welcomer()
+    welcomer()
 
-def main():
-    opt = input('''\n                   ~ MENU ~ 
+    def menu():
+        print('''\n                   ~ MENU ~ 
 
-Select an action you want to perform:
+        These are the commands you can perform :
 
-        1.  Press `c` to create a memory
-        2.  Press `d` to delete an existing memory
-        3.  Press `v` to view all the memories created
-        4.  Press `e` to edit a memory
-        5.  Press `exit` to exit the app\n : ''')
+            1.  Create
+            2.  Edit
+            3.  View
+            4.  Delete
+            5.  Type `exit` to exit the app or 'menu' to see these commands again ''')
 
-    if opt.lower() == "c":
-        title = take_title()
-        memory = take_memory()
-        mycursor.execute(insert_into,(title,memory,datetime.now()))
-        db.commit()
-        print("New memory created !!")
+# this class will contains all the methods to get input from the user 
+class Inputs():
+    def __init__(self):
+        pass
+    def take_pass():
+        pwd = input("\nPlease enter your password to continue: \n")
+        return pwd
 
-    elif opt.lower() == "d":
-        row = input("Hmm, ok give me the title of the memory you want to delete (make sure this action won't be reversed):  ")
-        confirm = input(f"Is `{row}` the memory you want to delete? ( yes/no ): ")
-        if confirm.lower() == "yes":
-            mycursor.execute(delete_row%(row,))
-            db.commit()
-            print(f"Alright! Deleted `{row}`")
-        else:
-            print("Then Enter a correct value please")
+    def take_user():
+        pwd = input("\nPlease enter your username: \n")
+        return pwd	
 
-    elif opt.lower() == "v":
-        mycursor.execute(select_all)
+    def take_title():
+        title = input("\nHey, What should be the title of this memory saved as? \n")
+        return title
+
+    def take_memory():
+        mem = input("\nAlright! Now tell me all about it, we'll keep it a secret haha \n")
+        return mem
+
+# this class will contain all the methods used to perform cred functions 
+# CRED - (create,read,edit,delete)
+class Cred():
+    def __init__(self):
+        pass
+
+    def create(title,memory,cursor,database):
+        cursor.execute(insert_into,(title,memory,datetime.now()))
+        database.commit()
+        print('New memory created!')
+
+    def edit(cursor,db):
+        cursor.execute(select_all)
+        result = cursor.fetchall()
+
         print("\nHere are all of your memories!\n")
-        for x in mycursor:
-            print(f"    --> {x[0]} on {x[2]}")
-        choose = input("Which one do you wanna read ?")
-        mycursor.execute(select_memory%(choose,))
-        for x in mycursor:
-            print("\n",x[0])
-    
-    elif opt.lower() == "e":
-        mycursor.execute(select_all)
-        print("\nHere are all of your memories!\n")
-        
-        for x in mycursor:
-            print(f"    {x[3]}. {x[0]}  on {x[2]}")
+        print(tabulate(result,headers=['Title','Memory','Created','ID'], tablefmt='fancy_grid'))
 
         id = int(input("\nWhich one do you wanna edit (1,2,3..)?: "))
         choose= input("\nType `t` if you just wanna edit the title and `m` if the memory itself: ")
         choose_new = input("\nAlright, now just give me the new content to replace! : ")
 
         if choose.lower() == "t":
-            mycursor.execute(update_title%(choose_new,id))
+            cursor.execute(update_title%(choose_new,id))
             db.commit()
             print("Done!")
 
         elif choose.lower() == "m":
-            mycursor.execute(update_memory%(choose_new,id))
+            cursor.execute(update_memory%(choose_new,id))
             db.commit()
             print("Done!")
-            
+
+    def view(cursor):
+        cursor.execute(select_all)
+        result = cursor.fetchall()
+        print("\nHere are all of your memories!\n")
+        print(tabulate(result,headers=['Title','Memory','Created','ID'], tablefmt='fancy_grid'))
+
+    def delete(cursor,db):
+        cursor.execute(select_all)
+        result = cursor.fetchall()
+        print(tabulate(result,headers=['Title','Memory','Created','ID'], tablefmt='fancy_grid'))
+        row = input("Hmm, ok give me the title of the memory you want to delete (make sure this action won't be reversed):  ")
+        confirm = input(f"Is `{row}` the memory you want to delete? ( yes/no ): ")
+        if confirm.lower() == "yes":
+            cursor.execute(delete_row%(row,))
+            db.commit()
+            print(f"Alright! Deleted `{row}`")
+
+# just a function to check the command user gave as an input
+def check(opt,cursor,db):
+    if opt.lower() == "create" or opt.lower() == "1":
+        Cred.create(Inputs.take_title(),Inputs.take_memory(),cursor,db)
+
+    elif opt.lower() == "edit" or opt.lower() == "2":
+        Cred.edit(cursor,db)
+
+    elif opt.lower() == "view" or opt.lower() == "3":
+        Cred.view(cursor)
+
+    elif opt.lower() == "delete" or opt.lower() == "2":
+        Cred.delete(cursor,db)
+
+    elif opt.lower() == "menu":
+        menu()
+    
     elif opt.lower() == "exit":
         sys.exit()
 
     else:
         print("please enter a correct value")
 
-while True:
-    main()
-    time.sleep(5)
+# the main loop we will be running infinitely 
+def main():
+    running = True
+    try:
+        while running:
+            global opt 
+            opt = input("\nCommand: ")
+
+            check(opt,mycursor,db)
+    except mysql.connector.errors.DataError:
+        print("\nData too long! Enter a shorter value please")
+        main()
+menu()   
+main()
