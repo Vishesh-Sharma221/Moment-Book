@@ -17,41 +17,29 @@ The whole objective of this program is to get the event name with a particular d
 - Updating the data at any time.
 - Deleting records from the data as well
 
-# Languages, Libraries, and Modules Used
+## Installation
 
-## Languages:
+```py
+pip install Moment-Book
+```
 
-This project is based on the following languages:
-- Python
-- SQL
+Install the terminal version (the lastest one at the moment) of this project using pip.
+The comman above should work properly but in case one does not you can try these:
 
-The RDBMS used, here, to manage and access data is MySQL.
+> pip install Moment-Book <br/>
+> python3 -m pip install Moment-Book <br/>
+> python3.9 -m pip install Moment-Book
 
-## Libraries:
+## Running the CLI
 
-The libraries used in this project are listed below:
-- Pygame Library
+After the package is successfully installed in your respective machine, you can run the command line interface or CLI using this command :
 
-## Modules:
+```py
+python3.9 -m MomentBook.cli
+```
 
-The modules used in this project are listed below:
+> Note: I'm being more specific with `python3.9` as i have multiple versions of python on my linux machine but if you don't you can just simply go with `python -m MomentBook.cli` 
 
-- DateTime
-- MySQL Connector
+<br/><br/>
 
-# Diagrammatic Representation
-
-![alt text](https://cdn.discordapp.com/attachments/838392313343901698/932604474848051261/unknown.png)
-
-# Benefits
-
-The Benefits of this project are :
-
-- Writing stuff in diaries is a bit boring nowadays, this project makes it easier as a decent amount of people enjoy typing more than writing manually.
-
-- Now Since we are typing, it saves time and also reduces the wastage of paper.
-
-- Whatever you saved in the moment book, can be viewed or modified anytime after that which makes the program even more versatile.
-
-
-### Thank you!
+#### Thank you!
