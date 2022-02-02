@@ -1,34 +1,33 @@
 
 #  MAIN FILE IMPORTS 
 
-from database_funcs import *
-from queries import * 
+from MomentBook.database_funcs import *
+from MomentBook.queries import * 
 from datetime import datetime
 from tabulate import tabulate 
 import sys
 
-if __name__ == "__main__":
-    db = connect_to_server() #connects user to the server
+db = connect_to_server() #connects user to the server
 
-    mycursor = connect_cursor(db) #connects cursor which we use to execute commands in sql with python
+mycursor = connect_cursor(db) #connects cursor which we use to execute commands in sql with python
 
 # executing the queries for basic requirements in our database 
-    mycursor.execute(create_database)
-    mycursor.execute(use_database)
-    mycursor.execute(create_table) 
+mycursor.execute(create_database)
+mycursor.execute(use_database)
+mycursor.execute(create_table) 
 
-    welcomer()
+welcomer()
 
-    def menu():
-        print('''\n                   ~ MENU ~ 
+def menu():
+    print('''\n                   ~ MENU ~ 
 
-        These are the commands you can perform :
+    These are the commands you can perform :
 
-            1.  Create
-            2.  Edit
-            3.  View
-            4.  Delete
-            5.  Type `exit` to exit the app or 'menu' to see these commands again ''')
+        1.  Create
+        2.  Edit
+        3.  View
+        4.  Delete
+        5.  Type `exit` to exit the app or 'menu' to see these commands again ''')
 
 # this class will contains all the methods to get input from the user 
 class Inputs():
@@ -50,8 +49,8 @@ class Inputs():
         mem = input("\nAlright! Now tell me all about it, we'll keep it a secret haha \n")
         return mem
 
-# this class will contain all the methods used to perform cred functions 
-# CRED - (create,read,edit,delete)
+    # this class will contain all the methods used to perform cred functions 
+    # CRED - (create,read,edit,delete)
 class Cred():
     def __init__(self):
         pass
@@ -120,7 +119,7 @@ def check(opt,cursor,db):
 
     elif opt.lower() == "menu":
         menu()
-    
+
     elif opt.lower() == "exit":
         sys.exit()
 
@@ -139,5 +138,3 @@ def main():
     except mysql.connector.errors.DataError:
         print("\nData too long! Enter a shorter value please")
         main()
-menu()   
-main()

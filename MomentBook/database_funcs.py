@@ -1,5 +1,5 @@
 import mysql.connector 
-from queries import *
+from MomentBook.queries import *
 #  THIS IS WHERE ALL THE ESSENTIAL FUNCTIONS AND VARIABLES ARE STORED
 
 def connect_to_server():

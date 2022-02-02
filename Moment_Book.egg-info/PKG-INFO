@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: Moment-Book
+Version: 0.0.6
+Summary: A Terminal based digital diary
+Home-page: UNKNOWN
+Author: PsyQuake (Vishesh Sharma)
+Author-email: <sharmavishesh022@gmail.com>
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: python,book,diary,notepad,cli,mysql
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
