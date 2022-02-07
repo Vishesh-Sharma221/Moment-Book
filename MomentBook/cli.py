@@ -4,7 +4,7 @@
 from MomentBook.database_funcs import *
 from MomentBook.queries import * 
 from datetime import datetime
-from tabulate import tabulate 
+from tabulate import tabulate
 import sys
 
 db = connect_to_server() #connects user to the server
