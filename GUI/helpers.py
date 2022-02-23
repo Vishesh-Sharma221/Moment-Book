@@ -13,7 +13,7 @@ WindowManager:
         text: "Moment Book"
         halign: "center"
         font_style: "H4"
-        font_name: "GUI/assets/SecularOne-Regular.ttf"
+        font_name: "GUI/assets/Biscuit & Chocolat.ttf"
         pos_hint: {'center_x':0.5, 'center_y':0.9}
 
     MDTextField:
@@ -51,13 +51,61 @@ WindowManager:
         id: title
         text: "What's up?"
         halign: "center"
-        font_style: "H4"
-        pos_hint: {'center_x':0.4, 'center_y':0.9}
+        font_style: "H6"
+        pos_hint: {'center_x':0.7, 'center_y':0.9}
         font_name: "GUI/assets/SecularOne-Regular.ttf"
 
-    Image:
-        source: "GUI/assets/logo_transparent.png"
-        pos_hint: {"center_x": .1,"center_y": .9}
+    # Image:
+    #     source: "GUI/assets/logo_transparent.png"
+    #     pos_hint: {"center_x": .1,"center_y": .9}
+
+    MDFloatingActionButton:
+        icon: "account"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.9, 'center_y':0.9}
+
+    MDFloatingActionButton:
+        icon: "book-multiple"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.1, 'center_y':0.7}
+    MDLabel:
+        text: "My Memories"
+        font_style: "H4"
+        pos_hint: {'center_x':0.7, 'center_y':0.7}     
+        font_name: "GUI/assets/SecularOne-Regular.ttf"
+
+    MDFloatingActionButton:
+        icon: "book-edit"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.1, 'center_y':0.5}
+
+    MDLabel:
+        text: "Create!"
+        font_style: "H4"
+        pos_hint: {'center_x':0.7, 'center_y':0.5}  
+        font_name: "GUI/assets/SecularOne-Regular.ttf"
+
+    MDFloatingActionButton:
+        icon: "file-document-edit"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.1, 'center_y':0.3}
+
+    MDLabel:
+        text: "Edit"
+        font_style: "H4"
+        pos_hint: {'center_x':0.7, 'center_y':0.3}  
+        font_name: "GUI/assets/SecularOne-Regular.ttf"
+
+    MDFloatingActionButton:
+        icon: "delete-forever"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.1, 'center_y':0.1}
+
+    MDLabel:
+        text: "Delete"
+        font_style: "H4"
+        pos_hint: {'center_x':0.7, 'center_y':0.1}  
+        font_name: "GUI/assets/SecularOne-Regular.ttf"
 
     MDRectangleFlatButton:
         text: "Go Back!"
